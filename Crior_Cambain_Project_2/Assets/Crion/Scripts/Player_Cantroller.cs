@@ -30,8 +30,6 @@ public class Player_Cantroller : MonoBehaviour
             yRotation += mouseX;
 
             xRotation = Mathf.Clamp(xRotation, -60f, 60f);
-
-            // Apply rotation to the camera (vertical) and player (horizontal)
             camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
         }
