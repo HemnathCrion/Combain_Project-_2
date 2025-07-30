@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,27 +12,50 @@ public class InfoButtonData
 
 public class UI_Info_Deteil : MonoBehaviour
 {
-    public Button infoButton;
     public GameObject infoButtonPanel;
     public GameObject infoDetailPanel;
-    public List<InfoButtonData> infoButtons;
+    public GameObject infoDuplicatePanel;
+
     public UI_Info_Text uiInfoText;
+
+    public List<InfoButtonData> infoButtons;
+
     void Start()
     {
-        infoButtonPanel.SetActive(false);
-        infoDetailPanel.SetActive(false);
-          foreach(var infodata in infoButtons)
+        HideAllPanels();
+
+        foreach (var infoData in infoButtons)
         {
-            infodata.button.onClick.AddListener(() => ShowCustomInfo(infodata.assetName, infodata.description));
+            string name = infoData.assetName;
+            string desc = infoData.description;
+
+            infoData.button.onClick.AddListener(() => ShowInfoDetailPanel(name, desc));
         }
-        
     }
 
-    public void ShowCustomInfo(string name, string description)
+    public void ShowInfoButtonPanel()
     {
-        infoButtonPanel.SetActive(false);
+        HideAllPanels();
+        infoButtonPanel.SetActive(true);
+    }
+
+    public void ShowDuplicatePanel()
+    {
+        HideAllPanels();
+        infoDuplicatePanel.SetActive(true);
+    }
+
+    public void ShowInfoDetailPanel(string name, string description)
+    {
+        HideAllPanels();
         infoDetailPanel.SetActive(true);
         uiInfoText.ShowAssetPanel(name, description);
     }
-   
+
+    public void HideAllPanels()
+    {
+        infoButtonPanel.SetActive(false);
+        infoDetailPanel.SetActive(false);
+        infoDuplicatePanel.SetActive(false);
+    }
 }
