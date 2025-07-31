@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Triger_Dedection : MonoBehaviour
 {
@@ -35,13 +36,25 @@ public class Triger_Dedection : MonoBehaviour
             StartCoroutine(ShowText());
             Destroy(other.gameObject);
         }
+        if (other.CompareTag("sceneChange"))
+        {
+            SceneChange();
+            DontDestroyOnLoad(gameObject);
+            Destroy(other.gameObject);
+
+
+        }
 
     }
     public void AudioPlay()
     {
         audioSource.Play();
     }
-   
+    public void SceneChange()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1 );
+
+    }
     public IEnumerator ShowText()
     {
         yield return new WaitForSeconds(1);
